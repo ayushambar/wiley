@@ -14,28 +14,22 @@ public class BankingPlatform {
 		addr.add(new Address("BLR",560002));
 			
 		List<User> users=new ArrayList();
-		users.add(new User(02,"User2",new ArrayList<>(Arrays.asList(
-												addr.get(0),addr.get(1)))));
-		users.add(new User(01,"User1",new ArrayList<>(Arrays.asList(
-				addr.get(2),
-				addr.get(0)))));
 		
-		users.add(new User(03,"User3",new ArrayList<>(Arrays.asList(
-				addr.get(2),
-				addr.get(0)))));
+		users.add(new User(02,"User2",new ArrayList<>(Arrays.asList(addr.get(0),addr.get(1)))));
+
+		users.add(new User(01,"User1",new ArrayList<>(Arrays.asList(addr.get(2),addr.get(0)))));
 		
-		users.add(new User(04,"User4",new ArrayList<>(Arrays.asList(
-				addr.get(3),
-				addr.get(0)))));
+		users.add(new User(03,"User3",new ArrayList<>(Arrays.asList(addr.get(2),addr.get(0)))));
 		
-		users.add(new User(05,"User5",new ArrayList<>(Arrays.asList(
-				addr.get(3),
-				addr.get(2)))));
+		users.add(new User(04,"User4",new ArrayList<>(Arrays.asList(addr.get(3),addr.get(0)))));
 		
-		users.add(new User(06,"User6",new ArrayList<>(Arrays.asList(
-				addr.get(0)))));
+		users.add(new User(05,"User5",new ArrayList<>(Arrays.asList(addr.get(3),addr.get(2)))));
 		
-		Map<Address,List<User>> adrMap=new TreeMap<>();
+		users.add(new User(06,"User6",new ArrayList<>(Arrays.asList(addr.get(0)))));
+		
+		users.stream().forEach(usr->usr.address.stream().forEach(adr->adr.noOfUsers++));
+		
+		Map<Address,List<User>> adrMap=new TreeMap<Address,List<User>>();
 		
 		users.stream().forEach(usr->usr.address.stream()
 				.forEach(adr->{
@@ -73,12 +67,13 @@ class User{
 class Address implements Comparable{
 	String city;
 	int zip; 	
-	int noOfUsers=0;
+	int noOfUsers =0;
+	List<User> users=new ArrayList<>(); 
 	
 	public Address(String city,int zip) {
 		this.city=city;
 		this.zip=zip;
-		noOfUsers++;
+
 	}
 	
 	public int compareTo(Object ad) {
